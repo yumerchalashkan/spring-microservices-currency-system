@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="currency-conversion" />
         <module name="microservices-parent" />
         <module name="currency-service" />
         <module name="spring-cloud-config-server" />
@@ -14,6 +15,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="currency-conversion" options="-parameters" />
       <module name="currency-service" options="-parameters" />
       <module name="spring-cloud-config-server" options="-parameters" />
     </option>
