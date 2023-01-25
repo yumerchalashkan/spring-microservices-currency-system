@@ -6,7 +6,7 @@ public class ExchangeCurrency {
     private Long id;
     private String from;
     private String to;
-    private BigDecimal exchangeValue;
+    private Long exchangeValue;
 
     private String environment;
 
@@ -14,11 +14,12 @@ public class ExchangeCurrency {
 
     }
 
-    public ExchangeCurrency(Long id, String from, String to, BigDecimal exchangeValue) {
+    public ExchangeCurrency(Long id, String from, String to, Long exchangeValue, String environment) {
         this.id = id;
         this.from = from;
         this.to = to;
         this.exchangeValue = exchangeValue;
+        this.environment = environment;
     }
 
     public Long getId() {
@@ -45,11 +46,11 @@ public class ExchangeCurrency {
         this.to = to;
     }
 
-    public BigDecimal getExchangeValue() {
+    public Long getExchangeValue() {
         return exchangeValue;
     }
 
-    public void setExchangeValue(BigDecimal exchangeValue) {
+    public void setExchangeValue(Long exchangeValue) {
         this.exchangeValue = exchangeValue;
     }
 
