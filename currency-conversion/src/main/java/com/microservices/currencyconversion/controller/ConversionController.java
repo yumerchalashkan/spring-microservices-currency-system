@@ -1,18 +1,29 @@
 package com.microservices.currencyconversion.controller;
 
 import com.microservices.currencyconversion.beans.ConversionCurrency;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 @RestController
 public class ConversionController {
 
     @GetMapping("/conversion/from/{from}/to/{to}/amount/{amount}")
-    public ConversionCurrency calculateConversion(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal amount){
-        return new ConversionCurrency(100L,from,to,amount, BigDecimal.ONE,BigDecimal.TEN,"");
+    public ConversionCurrency calculateConversion(@PathVariable String from, @PathVariable String to, @PathVariable Long amount){
+
+        HashMap<String,String> variables = new HashMap<>();
+        variables.put("from",from);
+        variables.put("to",to);
+        ResponseEntity<ConversionCurrency> responseEntity = new RestTemplate().getForEntity("http://localhost:8080/currency/from/{from}/to/{to}",ConversionCurrency.class,variables );
+        ConversionCurrency conversionCurrency = responseEntity.getBody();
+
+
+        return new ConversionCurrency(conversionCurrency.getId(),from,to,amount, conversionCurrency.getExchangeValue(), (amount * conversionCurrency.getExchangeValue()), conversionCurrency.getEnvironment());
     }
 
 }
